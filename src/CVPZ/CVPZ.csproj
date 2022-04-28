@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>e95811e3-398f-4274-a092-8f96818d2e76</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CVPZ.Application\CVPZ.Application.csproj" />
+    <ProjectReference Include="..\CVPZ.Core\CVPZ.Core.csproj" />
+    <ProjectReference Include="..\CVPZ.Infrastructure\CVPZ.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
