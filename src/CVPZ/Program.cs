@@ -1,8 +1,12 @@
 using CVPZ.Application;
 using CVPZ.Core;
 using CVPZ.Infrastructure;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((hostBuilderContext, loggerConfiguration) => loggerConfiguration
+    .WriteTo.Console());
 
 // Add services to the container.
 builder.Services.AddCore();
