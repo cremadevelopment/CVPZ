@@ -13,8 +13,7 @@ namespace CVPZ.Infrastructure.Migrations
                 name: "Description",
                 table: "Jobs",
                 type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "EmployerName",
