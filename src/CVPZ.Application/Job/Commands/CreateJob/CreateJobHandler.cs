@@ -17,12 +17,23 @@ public class CreateJobHandler : IRequestHandler<CreateJobRequest, CreateJobRespo
         var entity = await MapToEntity(request);
         await PersistEntity(entity);
 
-        return new CreateJobResponse(entity.Id.ToString(), entity.Title);
+        return new CreateJobResponse(entity.Id.ToString(),
+            entity.Title,
+            entity.EmployerName,
+            entity.Description,
+            entity.StartDate,
+            entity.EndDate);
     }
 
     private async Task<Domain.Job> MapToEntity(CreateJobRequest request)
     {
-        return new Domain.Job {  Title = request.Title };
+        return new Domain.Job {
+            Title = request.Title,
+            EmployerName = request.EmployerName,
+            Description = request.Description,
+            StartDate = request.StartDate,
+            EndDate = request.EndDate
+        };
     }
 
     private async Task PersistEntity (Domain.Job entity)
