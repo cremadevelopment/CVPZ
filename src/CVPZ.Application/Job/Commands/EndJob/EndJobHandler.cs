@@ -7,11 +7,13 @@ namespace CVPZ.Application.Job.Commands.EndJob;
 public class EndJobHandler : IRequestHandler<EndJobRequest, EndJobResponse>
 {
     private readonly CVPZContext _context;
+    private readonly IMediator _mediator;
     private readonly ILogger _logger;
 
-    public EndJobHandler(CVPZContext context, ILogger logger)
+    public EndJobHandler(CVPZContext context, IMediator mediator, ILogger logger)
     {
         this._context = context;
+        this._mediator = mediator;
         this._logger = logger;
     }
 
@@ -33,6 +35,8 @@ public class EndJobHandler : IRequestHandler<EndJobRequest, EndJobResponse>
 
         entity.EndDate = request.EndDate;
         await _context.SaveChangesAsync();
+
+        await _mediator.Publish(new JobEnded());
 
         return new EndJobResponse(jobId.ToString());
     }
