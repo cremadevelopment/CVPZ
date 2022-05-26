@@ -18,4 +18,8 @@
     <ProjectReference Include="..\CVPZ.Infrastructure\CVPZ.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Job\Commands\" />
+  </ItemGroup>
+
 </Project>

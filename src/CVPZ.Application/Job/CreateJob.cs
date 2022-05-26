@@ -52,53 +52,19 @@ public static class CreateJob
         }
     }
 
-    public class Request : IRequest<Response>
-    {
-        public Request(
-            string title,
-            string employerName,
-            string? description,
-            DateTimeOffset startDate,
-            DateTimeOffset? endDate)
-        {
-            Title = title;
-            EmployerName = employerName;
-            Description = description;
-            StartDate = startDate;
-            EndDate = endDate;
-        }
+    public record Request (
+        string Title,
+        string EmployerName,
+        string? Description,
+        DateTimeOffset StartDate,
+        DateTimeOffset? EndDate)
+        : IRequest<Response>;
 
-        public string Title { get; }
-        public string EmployerName { get; }
-        public string? Description { get; }
-        public DateTimeOffset StartDate { get; }
-        public DateTimeOffset? EndDate { get; }
-    }
-
-
-    public class Response
-    {
-        public Response(
-            string id,
-            string title,
-            string employerName,
-            string? description,
-            DateTimeOffset startDate,
-            DateTimeOffset? endDate)
-        {
-            Id = id;
-            Title = title;
-            EmployerName = employerName;
-            Description = description;
-            StartDate = startDate;
-            EndDate = endDate;
-        }
-
-        public string Id { get; }
-        public string EmployerName { get; }
-        public string Title { get; }
-        public string? Description { get; }
-        public DateTimeOffset StartDate { get; }
-        public DateTimeOffset? EndDate { get; }
-    }
+    public record Response (
+        string Id,
+        string EmployerName,
+        string Title,
+        string? Description,
+        DateTimeOffset StartDate,
+        DateTimeOffset? EndDate);
 }
