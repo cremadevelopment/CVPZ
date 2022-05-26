@@ -1,5 +1,4 @@
 ﻿using CVPZ.Application.Job;
-using CVPZ.Application.Job.Commands.EndJob;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +16,7 @@ public class JobController : BaseApiController
     }
 
     [HttpPut("End/{jobId}")]
-    public async Task<EndJobResponse> Put([FromRoute]string jobId, EndJobRequest request)
+    public async Task<EndJob.Response> Put([FromRoute]string jobId, EndJob.Request request)
     {
         var response = await _mediator.Send(request);
         return response;
