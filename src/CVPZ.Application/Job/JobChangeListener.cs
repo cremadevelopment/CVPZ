@@ -1,5 +1,5 @@
-﻿using CVPZ.Application.Job.Commands.CreateJob;
-using CVPZ.Application.Job.Commands.EndJob;
+﻿using CVPZ.Application.Job.Commands.EndJob;
+using CVPZ.Application.Job.Events;
 using MediatR;
 using Serilog;
 

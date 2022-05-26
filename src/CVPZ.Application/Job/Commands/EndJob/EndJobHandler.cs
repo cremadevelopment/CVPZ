@@ -1,4 +1,5 @@
-﻿using CVPZ.Infrastructure.Data;
+﻿using CVPZ.Application.Job.Events;
+using CVPZ.Infrastructure.Data;
 using MediatR;
 using Serilog;
 
