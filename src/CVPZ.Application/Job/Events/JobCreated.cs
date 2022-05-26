@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CVPZ.Application.Job.Commands.CreateJob;
+namespace CVPZ.Application.Job.Events;
 
 public class JobCreated : INotification
 {

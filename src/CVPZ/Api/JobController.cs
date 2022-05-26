@@ -1,4 +1,4 @@
-﻿using CVPZ.Application.Job.Commands.CreateJob;
+﻿using CVPZ.Application.Job;
 using CVPZ.Application.Job.Commands.EndJob;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +10,7 @@ public class JobController : BaseApiController
     public JobController(IMediator mediator) : base(mediator) { }
 
     [HttpPost]
-    public async Task<CreateJobResponse> Post(CreateJobRequest request)
+    public async Task<CreateJob.Response> Post(CreateJob.Request request)
     {
         var response = await _mediator.Send(request);
         return response;
