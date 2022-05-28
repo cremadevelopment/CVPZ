@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="OneOf" Version="3.0.216" />
     <PackageReference Include="Serilog" Version="2.11.0" />
   </ItemGroup>
 
@@ -16,10 +17,6 @@
     <ProjectReference Include="..\CVPZ.Core\CVPZ.Core.csproj" />
     <ProjectReference Include="..\CVPZ.Domain\CVPZ.Domain.csproj" />
     <ProjectReference Include="..\CVPZ.Infrastructure\CVPZ.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Job\Commands\" />
   </ItemGroup>
 
 </Project>
