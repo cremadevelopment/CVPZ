@@ -22,4 +22,8 @@
     <ProjectReference Include="..\CVPZ.Infrastructure\CVPZ.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Api\" />
+  </ItemGroup>
+
 </Project>
