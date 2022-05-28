@@ -1,3 +1,4 @@
+using CVPZ.Api;
 using CVPZ.Application;
 using CVPZ.Application.Configuration.Queries.GetUserInfo;
 using CVPZ.Application.Job;
@@ -29,24 +30,8 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-
-app.MapGet("GetUserInfo", async ([FromServices] IMediator mediator) => {
-    return await mediator.Send(new GetUserInfo());
-}).Produces<UserInfo>();
-
-app.MapPost("CreateJob", async ([FromServices] IMediator mediator, CreateJob.Request request) => {
-    var result = await mediator.Send(request);
-    return result.Match(
-        response => Results.Ok(response),
-        error => Results.BadRequest(error)
-    );
-}).Produces<CreateJob.Response>();
-
-app.MapPost("EndJob", async ([FromServices] IMediator mediator, EndJob.Request request) =>
-{
-    var response = await mediator.Send(request);
-    return response;
-}).Produces<EndJob.Response>();
+app.MapUserApi();
+app.MapJobApi();
 
 app.UseSwagger();
 app.UseSwaggerUI();
