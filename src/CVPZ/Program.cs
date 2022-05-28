@@ -1,11 +1,7 @@
 using CVPZ.Api;
 using CVPZ.Application;
-using CVPZ.Application.Configuration.Queries.GetUserInfo;
-using CVPZ.Application.Job;
 using CVPZ.Core;
 using CVPZ.Infrastructure;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,7 +25,6 @@ builder.Services.AddSwaggerGen(options => {
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
 app.MapUserApi();
 app.MapJobApi();
 
