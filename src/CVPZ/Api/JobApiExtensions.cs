@@ -9,35 +9,45 @@ public static class JobApiExtensions
 {
     public static WebApplication MapJobApi(this WebApplication app)
     {
-        app.MapPost("/Job/Create", async ([FromServices] IMediator mediator, CreateJob.Request request) => {
-            var result = await mediator.Send(request);
-            return result.Match(
-                response => Results.Ok(response),
-                error => Results.BadRequest(error)
-            );
-        })
+        app.MapPost("/Job/Create", Create)
         .Produces<CreateJob.Response>()
         .WithTags("Job");
 
-        app.MapPost("Job/End", async ([FromServices] IMediator mediator, EndJob.Request request) =>
-        {
-            var response = await mediator.Send(request);
-            return response;
-        })
+        app.MapPost("Job/End", End)
         .Produces<EndJob.Response>()
         .WithTags("Job");
 
-        app.MapGet("Job", async ([FromServices] IMediator mediator) =>
-        {
-            var response = await mediator.Send(new GetJobs.Request());
-            return response.Match(
-                response => Results.Ok(response),
-                error => Results.BadRequest(error)
-            );
-        })
-        .Produces<GetJobs.Response>()
+        app.MapGet("Job", Search)
+        .Produces<SearchJobs.Response>()
         .WithTags("Job");
 
         return app;
+    }
+
+    public static async Task<IResult> Create([FromServices] IMediator mediator, CreateJob.Request request)
+    {
+        var response = await mediator.Send(request);
+        return response.Match(
+            response => Results.Ok(response),
+            error => Results.BadRequest(error)
+        );
+    }
+
+    public static async Task<IResult> End([FromServices] IMediator mediator, EndJob.Request request)
+    {
+        var response = await mediator.Send(request);
+        return response.Match(
+            response => Results.Ok(response),
+            error => Results.BadRequest(error)
+        );
+    }
+
+    public static async Task<IResult> Search([FromServices] IMediator mediator, [FromQuery] string? title, [FromQuery] string? employer)
+    {
+        var response = await mediator.Send(new SearchJobs.Request());
+        return response.Match(
+            response => Results.Ok(response),
+            error => Results.BadRequest(error)
+        );
     }
 }

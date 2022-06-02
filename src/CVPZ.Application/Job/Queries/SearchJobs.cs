@@ -5,7 +5,7 @@ using OneOf;
 
 namespace CVPZ.Application.Job.Queries;
 
-public static class GetJobs
+public static class SearchJobs
 {
     public record Request(): IRequest<OneOf<Response, Error>>;
     public record Response(IEnumerable<Job> Jobs);

@@ -1,42 +1,54 @@
-﻿using CVPZ.Infrastructure.Data;
+﻿using CVPZ.Core;
+using CVPZ.Infrastructure.Data;
 using MediatR;
-using Serilog;
+using OneOf;
 using static CVPZ.Application.Job.JobEvents;
 
 namespace CVPZ.Application.Job.Commands;
 
 public static class EndJob
 {
-    public class Handler : IRequestHandler<Request, Response>
+
+    public record Request(string JobId, DateTimeOffset EndDate) : IRequest<OneOf<Response, Error>>;
+
+    public record Response(string JobId);
+
+    public class Errors
+    {
+        public static Error JobIdNotValid => new(Code: nameof(JobIdNotValid), "Job id provided was not valid");
+        public static Error JobNotFound => new(Code: nameof(JobNotFound), "Job not found for the given id");
+        public static Error JobEndDateRequired => new(Code: nameof(JobEndDateRequired), "Job end date required");
+        public static Error JobEndDateGreaterThanStartDate => new(Code: nameof(JobEndDateGreaterThanStartDate), "Job end date must be after the start date");
+    }
+
+    public class Handler : IRequestHandler<Request, OneOf<Response, Error>>
     {
         private readonly CVPZContext _context;
         private readonly IMediator _mediator;
-        private readonly ILogger _logger;
 
-        public Handler(CVPZContext context, IMediator mediator, ILogger logger)
+        public Handler(CVPZContext context, IMediator mediator)
         {
             this._context = context;
             this._mediator = mediator;
-            this._logger = logger;
         }
 
-        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<OneOf<Response, Error>> Handle(Request request, CancellationToken cancellationToken)
         {
             var validId = int.TryParse(request.JobId, out int jobId);
             if (!validId)
-            {
-                _logger.Error("Job id of {jobId} was invalid.", request.JobId);
-                throw new KeyNotFoundException($"Job id of {request.JobId} was invalid.");
-            }
+                return Errors.JobIdNotValid;
 
-            var entity = await _context.Jobs.FindAsync(jobId);
-            if (entity == null)
-            {
-                _logger.Error("Job with id {jobId} not found.", jobId);
-                throw new KeyNotFoundException($"Job with id {jobId} not found.");
-            }
+            var job = await _context.Jobs.FindAsync(jobId);
+            if (null == job)
+                return Errors.JobNotFound;
 
-            entity.EndDate = request.EndDate;
+            if (DateTimeOffset.MinValue == request.EndDate || DateTimeOffset.MaxValue == request.EndDate)
+                return Errors.JobEndDateRequired;
+
+            if (job.StartDate > request.EndDate)
+                return Errors.JobEndDateGreaterThanStartDate;
+
+            job.EndDate = request.EndDate;
             await _context.SaveChangesAsync();
 
             await _mediator.Publish(new JobEnded(request.JobId));
@@ -44,8 +56,4 @@ public static class EndJob
             return new Response(jobId.ToString());
         }
     }
-
-    public record Request(string JobId, DateTimeOffset EndDate) : IRequest<Response>;
-
-    public record Response(string JobId);
 }

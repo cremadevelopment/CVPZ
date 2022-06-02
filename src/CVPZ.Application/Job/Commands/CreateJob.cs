@@ -8,6 +8,22 @@ namespace CVPZ.Application.Job.Commands;
 
 public static class CreateJob
 {
+    public record Request(
+        string Title,
+        string EmployerName,
+        string? Description,
+        DateTimeOffset StartDate,
+        DateTimeOffset? EndDate)
+        : IRequest<OneOf<Response, Error>>;
+
+    public record Response(
+        string Id,
+        string EmployerName,
+        string Title,
+        string? Description,
+        DateTimeOffset StartDate,
+        DateTimeOffset? EndDate);
+
     public class Errors
     {
         public static Error JobTitleRequired => new(Code: nameof(JobTitleRequired), "Title is required");
@@ -72,20 +88,4 @@ public static class CreateJob
             await _context.SaveChangesAsync();
         }
     }
-
-    public record Request (
-        string Title,
-        string EmployerName,
-        string? Description,
-        DateTimeOffset StartDate,
-        DateTimeOffset? EndDate)
-        : IRequest<OneOf<Response, Error>>;
-
-    public record Response (
-        string Id,
-        string EmployerName,
-        string Title,
-        string? Description,
-        DateTimeOffset StartDate,
-        DateTimeOffset? EndDate);
 }
