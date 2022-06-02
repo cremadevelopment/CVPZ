@@ -1,4 +1,5 @@
 ﻿using CVPZ.Application.Job.Commands;
+using CVPZ.Application.Job.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,17 @@ public static class JobApiExtensions
             return response;
         })
         .Produces<EndJob.Response>()
+        .WithTags("Job");
+
+        app.MapGet("Job", async ([FromServices] IMediator mediator) =>
+        {
+            var response = await mediator.Send(new GetJobs.Request());
+            return response.Match(
+                response => Results.Ok(response),
+                error => Results.BadRequest(error)
+            );
+        })
+        .Produces<GetJobs.Response>()
         .WithTags("Job");
 
         return app;
