@@ -44,7 +44,7 @@ public static class JobApiExtensions
 
     public static async Task<IResult> Search([FromServices] IMediator mediator, [FromQuery] string? title, [FromQuery] string? employer)
     {
-        var response = await mediator.Send(new SearchJobs.Request());
+        var response = await mediator.Send(new SearchJobs.Request(title, employer));
         return response.Match(
             response => Results.Ok(response),
             error => Results.BadRequest(error)
