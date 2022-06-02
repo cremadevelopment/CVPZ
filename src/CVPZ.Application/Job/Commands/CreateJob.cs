@@ -1,16 +1,19 @@
-﻿using CVPZ.Application.Job.Events;
-using CVPZ.Core;
+﻿using CVPZ.Core;
 using CVPZ.Infrastructure.Data;
 using MediatR;
 using OneOf;
+using static CVPZ.Application.Job.JobEvents;
 
-namespace CVPZ.Application.Job;
+namespace CVPZ.Application.Job.Commands;
 
 public static class CreateJob
 {
     public class Errors
     {
         public static Error JobTitleRequired => new(Code: nameof(JobTitleRequired), "Title is required");
+        public static Error JobEmployerNameRequired => new(Code: nameof(JobEmployerNameRequired), "Employer name is required");
+        public static Error JobStartDateRequired => new(Code: nameof(JobStartDateRequired), "Job start date required");
+        public static Error JobEndDateGreaterThanStartDate => new(Code: nameof(JobEndDateGreaterThanStartDate), "Job end date must be after the start date");
     }
 
     public class Handler : IRequestHandler<Request, OneOf<Response, Error>>
@@ -29,10 +32,19 @@ public static class CreateJob
             if (string.IsNullOrWhiteSpace(request.Title))
                 return Errors.JobTitleRequired;
 
+            if (string.IsNullOrWhiteSpace(request.EmployerName))
+                return Errors.JobEmployerNameRequired;
+
+            if (DateTimeOffset.MinValue == request.StartDate || DateTimeOffset.MaxValue == request.StartDate)
+                return Errors.JobStartDateRequired;
+
+            if (request.EndDate.HasValue && request.StartDate > request.EndDate.Value)
+                return Errors.JobEndDateGreaterThanStartDate;
+
             var entity = await MapToEntity(request);
             await PersistEntity(entity);
 
-            await _mediator.Publish(new JobCreated());
+            await _mediator.Publish(new JobCreated(entity.Id.ToString()));
 
             return new Response(entity.Id.ToString(),
                 entity.Title,

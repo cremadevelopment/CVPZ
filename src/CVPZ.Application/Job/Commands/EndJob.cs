@@ -1,9 +1,9 @@
-﻿using CVPZ.Application.Job.Events;
-using CVPZ.Infrastructure.Data;
+﻿using CVPZ.Infrastructure.Data;
 using MediatR;
 using Serilog;
+using static CVPZ.Application.Job.JobEvents;
 
-namespace CVPZ.Application.Job;
+namespace CVPZ.Application.Job.Commands;
 
 public static class EndJob
 {
@@ -39,7 +39,7 @@ public static class EndJob
             entity.EndDate = request.EndDate;
             await _context.SaveChangesAsync();
 
-            await _mediator.Publish(new JobEnded());
+            await _mediator.Publish(new JobEnded(request.JobId));
 
             return new Response(jobId.ToString());
         }
