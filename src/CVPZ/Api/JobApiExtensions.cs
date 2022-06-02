@@ -1,4 +1,4 @@
-﻿using CVPZ.Application.Job;
+﻿using CVPZ.Application.Job.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

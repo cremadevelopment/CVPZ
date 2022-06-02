@@ -1,6 +1,6 @@
-﻿using CVPZ.Application.Job.Events;
-using MediatR;
+﻿using MediatR;
 using Serilog;
+using static CVPZ.Application.Job.JobEvents;
 
 namespace CVPZ.Application.Job;
 
