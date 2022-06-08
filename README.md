@@ -1,10 +1,22 @@
 # Introduction
 
-Welcome to CVPZ...
+**CV** for [Curriculum Vitae](https://en.wikipedia.org/wiki/Curriculum_vitae) is a written overview of a person's experience and other qualifications. **PZ** 'cause it sounds easy.
+
+## What
+
+Developers continuously need to keep their resumes current, documenting every project, engagement, and various details of accomplishments.  Many have created git repositories that can store versions of these resumes well. However, as the breadth of experience expands it becomes hard to manage the growing amount of data in a single document. There are places to manage resume information, but these tools do not allow management of versions of the individual projects or the ability to query history to aid in highlighting specific experience.
+
+## Why
+
+We are hoping to inspire community involvement by building a simple and useful tool and to create an open space for anyone who wants to be involved to come and play. As a community we can expose each other to our favorite technologies and libraries, build relationships and refine our soft skills. Ultimately this should affect our local development community in many positive ways.
+
+## How
+
+By having one common goal to work toward, we will share ideas and continually move the project forward.  We will start with the setup of some infrastructure and then work on basic requirements.  The possibilities are endless with collaborative effort!
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://cremadevelopment@dev.azure.com/cremadevelopment/CVPZ/_git/CVPZ`
+1. Clone the repository: `git clone https://github.com/cremadevelopment/CVPZ.git`
 1. Edit the database connection string variables in `.\scripts\init-secrets.ps1` for your prefered database instance
 1. Setup .Net Secrets: `. .\scripts\init-secrets.ps1`
 1. Enter YourName
