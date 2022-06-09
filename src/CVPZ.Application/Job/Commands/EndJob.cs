@@ -1,8 +1,4 @@
-﻿using CVPZ.Core;
-using CVPZ.Infrastructure.Data;
-using MediatR;
-using OneOf;
-using static CVPZ.Application.Job.JobEvents;
+﻿using static CVPZ.Application.Job.JobEvents;
 
 namespace CVPZ.Application.Job.Commands;
 

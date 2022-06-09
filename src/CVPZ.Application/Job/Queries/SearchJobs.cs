@@ -1,8 +1,4 @@
-﻿using CVPZ.Core;
-using CVPZ.Infrastructure.Data;
-using MediatR;
-using OneOf;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace CVPZ.Application.Job.Queries;
 

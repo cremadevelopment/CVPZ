@@ -27,6 +27,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.MapUserApi();
 app.MapJobApi();
+app.MapSkillApi();
 
 app.UseSwagger();
 app.UseSwaggerUI();
