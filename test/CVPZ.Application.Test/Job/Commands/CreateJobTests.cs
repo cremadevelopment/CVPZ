@@ -1,5 +1,4 @@
 ﻿using CVPZ.Application.Job;
-using CVPZ.Application.Job.Commands;
 using CVPZ.Application.Test.Core;
 using MediatR;
 using Moq;
