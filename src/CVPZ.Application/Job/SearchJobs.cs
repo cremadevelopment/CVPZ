@@ -10,7 +10,7 @@ public static class SearchJobs
 {
     public record Request(string? Title, string? Employer): IRequest<OneOf<Response, Error>>;
     public record Response(IEnumerable<Job> Jobs);
-    public record Job(string EmployerName, string Title, string? Description, DateTimeOffset StartDate, DateTimeOffset? EndDate);
+    public record Job(string JobId, string EmployerName, string Title, string? Description, DateTimeOffset StartDate, DateTimeOffset? EndDate);
 
     public class Handler : IRequestHandler<Request, OneOf<Response, Error>>
     {
@@ -27,8 +27,12 @@ public static class SearchJobs
                     .Where(SearchTitle(request.Title))
                     .Where(SearchEmployer(request.Employer))
                     .Select(x => new Job(
-                        x.EmployerName, x.Title, x.Description,
-                        x.StartDate, x.EndDate));
+                        x.Id.ToString(),
+                        x.EmployerName,
+                        x.Title,
+                        x.Description,
+                        x.StartDate,
+                        x.EndDate));
             return new Response(jobResults);
         }
 

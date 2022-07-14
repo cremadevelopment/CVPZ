@@ -60,14 +60,16 @@ public static class CreateJob
             var entity = await MapToEntity(request);
             await PersistEntity(entity);
 
-            await _mediator.Publish(new JobCreated(entity.Id.ToString()));
-
-            return new Response(entity.Id.ToString(),
+            var response = new Response(entity.Id.ToString(),
                 entity.Title,
                 entity.EmployerName,
                 entity.Description,
                 entity.StartDate,
                 entity.EndDate);
+
+            await _mediator.Publish(new JobCreated(entity.Id.ToString()));
+
+            return response;
         }
 
         private async Task<Domain.Job> MapToEntity(Request request)
