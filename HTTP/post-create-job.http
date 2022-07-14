@@ -1,0 +1,9 @@
+POST https://localhost:7241/Job/Create
+content-type: application/json
+
+{
+  "title": "Awesome Doer",
+  "employerName": "Crema Development {[/]",
+  "description": "Doer of awesome things that make people happy.",
+  "startDate": "2000-01-01"
+}

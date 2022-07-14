@@ -20,7 +20,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => {
     options.CustomSchemaIds(type => type.ToString().Replace("+", ""));
 });
-//builder.Services.ConfigureSwaggerGen(options => options.CustomSchemaIds(x => x.FullName.Replace("+", "_")));
 
 var app = builder.Build();
 

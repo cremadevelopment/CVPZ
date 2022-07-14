@@ -1,6 +1,4 @@
 ﻿using CVPZ.Application.Configuration.Queries.GetUserInfo;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CVPZ.Api;
 

@@ -4,7 +4,7 @@ using MediatR;
 using OneOf;
 using System.Linq.Expressions;
 
-namespace CVPZ.Application.Job.Queries;
+namespace CVPZ.Application.Job;
 
 public static class SearchJobs
 {

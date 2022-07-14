@@ -1,7 +1,4 @@
-﻿using CVPZ.Application.Job.Commands;
-using CVPZ.Application.Job.Queries;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using CVPZ.Application.Job;
 
 namespace CVPZ.Api;
 

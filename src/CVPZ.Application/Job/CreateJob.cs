@@ -4,7 +4,7 @@ using MediatR;
 using OneOf;
 using static CVPZ.Application.Job.JobEvents;
 
-namespace CVPZ.Application.Job.Commands;
+namespace CVPZ.Application.Job;
 
 public static class CreateJob
 {
