@@ -61,8 +61,8 @@ public static class CreateJob
             await PersistEntity(entity);
 
             var response = new Response(entity.Id.ToString(),
-                entity.Title,
                 entity.EmployerName,
+                entity.Title,
                 entity.Description,
                 entity.StartDate,
                 entity.EndDate);

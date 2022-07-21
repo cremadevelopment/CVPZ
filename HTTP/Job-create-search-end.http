@@ -1,0 +1,32 @@
+@jobTitle = Other Not Fun Guy
+
+# @name createJob
+POST {{baseUrl}}/Job/Create
+content-type: application/json
+
+{
+  "title": "{{jobTitle}}",
+  "employerName": "Quitable II",
+  "description": "I hate this job.",
+  "startDate": "{{$datetime 'YYYY-MM-DD' -25 y}}"
+}
+
+###
+
+@employerName = {{createJob.response.body.$.employerName}}
+
+# @name searchJob
+GET {{baseUrl}}/Job?employer={{employerName}}
+
+###
+
+@jobId = {{createJob.response.body.$.id}}
+
+# @name endJob
+POST {{baseUrl}}/Job/End
+content-type: application/json
+
+{
+  "jobId": "{{jobId}}",
+  "endDate": "{{$datetime 'YYYY-MM-DD' -1 d}}"
+}

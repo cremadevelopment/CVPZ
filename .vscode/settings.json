@@ -1,0 +1,12 @@
+{
+  "rest-client.addRequestBodyLineIndentationAroundBrackets": true,
+  "rest-client.environmentVariables": {
+    "$shared": {
+    },
+    "local": {
+      "baseUrl": "https://localhost:7241"
+    },
+    "production": {
+    }
+  }
+}

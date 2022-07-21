@@ -1,1 +1,5 @@
-GET https://localhost:7241/Job
+###
+# @prompt title Part of the desired job title
+# @prompt employer Part of the name of an employer to search for
+GET {{baseUrl}}/Job?title={{title}}&employer={{employer}}
+
