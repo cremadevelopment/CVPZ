@@ -1,13 +1,48 @@
-﻿<app-cvpz-navigation></app-cvpz-navigation>
+﻿<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Link 1</a>
+      <a mat-list-item href="#">Link 2</a>
+      <a mat-list-item href="#">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>{{ title }}</span>
 
-<h1 id="tableLabel">System Status</h1>
+      <button mat-raised-button *ngIf="!loginDisplay" (click)="login()">Login</button>
+      <button mat-raised-button color="accent" *ngIf="loginDisplay" (click)="logout()">Logout</button>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <h1 id="tableLabel">System Status</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+    <p>This component demonstrates fetching data from the server.</p>
 
-<p *ngIf="!pingResult">
-  <em>
-    Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.
-  </em>
-</p>
+    <p *ngIf="!pingResult">
+      <em>
+        Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.
+      </em>
+    </p>
 
-<span *ngIf="pingResult">{{pingResult | json}}</span>
+    <span *ngIf="pingResult">{{pingResult | json}}</span>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
+
+
+

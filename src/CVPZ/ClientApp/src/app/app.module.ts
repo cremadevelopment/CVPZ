@@ -25,7 +25,6 @@ import {
 } from '@azure/msal-angular';
 import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 
-import { CvpzNavigationComponent } from './cvpz-navigation/cvpz-navigation.component';
 import { msalConfig } from './auth-config';
 
 /**
@@ -49,7 +48,6 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 @NgModule({
   declarations: [
     AppComponent,
-    CvpzNavigationComponent
   ],
   imports: [
     BrowserModule,
