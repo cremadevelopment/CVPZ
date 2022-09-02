@@ -13,7 +13,16 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 
-import { MsalGuard, MsalGuardConfiguration, MsalBroadcastService, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MsalRedirectComponent } from '@azure/msal-angular';
+import {
+  MsalGuard,
+  MsalGuardConfiguration,
+  MsalBroadcastService,
+  MsalModule,
+  MsalService,
+  MSAL_GUARD_CONFIG,
+  MSAL_INSTANCE,
+  MsalRedirectComponent
+} from '@azure/msal-angular';
 import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 
 import { CvpzNavigationComponent } from './cvpz-navigation/cvpz-navigation.component';
