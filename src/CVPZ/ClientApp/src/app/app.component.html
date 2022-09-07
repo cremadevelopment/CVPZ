@@ -22,6 +22,8 @@
       </button>
       <span>{{ title }}</span>
 
+      <div class="toolbar-spacer"></div>
+
       <button mat-raised-button *ngIf="!loginDisplay" (click)="login()">Login</button>
       <button mat-raised-button color="accent" *ngIf="loginDisplay" (click)="logout()">Logout</button>
     </mat-toolbar>
