@@ -9,18 +9,18 @@ import { Job } from './job';
 })
 export class JobDataService {
   readonly ROOT_URL = "";
-  jobs: Observable<Job[]>;
+  private jobSource = new BehaviorSubject<Job[]>([]);
+  jobs = this.jobSource.asObservable();
 
 
 
-  constructor(private http: HttpClient) {
-    this.jobs = this.getJobs();
-  }
+  constructor(private http: HttpClient) { }
 
-  getJobs(): Observable<Job[]> {
-
+  getJobs() {
     let params = new HttpParams();//.set('title', 'Fun');
-    return this.http.get<JobApiResponse>(this.ROOT_URL + '/api/Job', { params }).pipe(map(val => val.jobs));
+    this.http
+      .get<JobApiResponse>(this.ROOT_URL + '/api/Job', { params })
+      .subscribe(resp => this.jobSource.next(resp.jobs));
   }
 }
 
