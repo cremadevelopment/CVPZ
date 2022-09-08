@@ -8,11 +8,13 @@ import { JobsListComponent } from './jobs-list/jobs-list.component';
 const routes: Routes = [
   {
     path: 'jobs',
-    component: JobsListComponent
+    component: JobsListComponent,
+    canActivate: [MsalGuard]
   },
   {
     path: 'journal',
-    component: JobJournalComponent
+    component: JobJournalComponent,
+    canActivate: [MsalGuard]
   },
   {
     path: '',
