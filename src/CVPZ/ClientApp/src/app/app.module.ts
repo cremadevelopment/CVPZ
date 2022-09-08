@@ -26,6 +26,7 @@ import {
 import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 
 import { msalConfig } from './auth-config';
+import { HomeComponent } from './home/home.component';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -48,6 +49,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject } from 'rxjs';
@@ -12,7 +11,6 @@ import { AuthenticationResult, InteractionStatus, InteractionType, PopupRequest,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public pingResult?: PingResponse;
   title = 'CVPZ';
   isIframe = false;
   loginDisplay = false;
@@ -25,15 +23,11 @@ export class AppComponent {
     );
 
   constructor(
-    http: HttpClient,
     private breakpointObserver: BreakpointObserver,
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService
   ) {
-    http.get<PingResponse>('/system/ping').subscribe(result => {
-      this.pingResult = result;
-    }, error => console.error(error));
   }
 
   ngOnInit(): void {
@@ -89,9 +83,4 @@ export class AppComponent {
     this._destroying$.complete();
   }
 
-}
-
-interface PingResponse {
-  date: string;
-  value: string;
 }
