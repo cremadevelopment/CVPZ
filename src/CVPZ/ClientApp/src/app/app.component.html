@@ -28,8 +28,7 @@
       <button mat-raised-button color="accent" *ngIf="loginDisplay" (click)="logout()">Logout</button>
     </mat-toolbar>
     <!-- Add Content Here -->
-    <app-home></app-home>
-
+    <router-outlet *ngIf="!isIframe"></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
