@@ -6,15 +6,15 @@ public static class JobApiExtensions
 {
     public static WebApplication MapJobApi(this WebApplication app)
     {
-        app.MapPost("/Job/Create", Create)
+        app.MapPost("/api/Job/Create", Create)
            .Produces<CreateJob.Response>()
            .WithTags("Job");
 
-        app.MapPost("Job/End", End)
+        app.MapPost("/api/Job/End", End)
            .Produces<EndJob.Response>()
            .WithTags("Job");
 
-        app.MapGet("Job", Search)
+        app.MapGet("/api/Job", Search)
            .Produces<SearchJobs.Response>()
            .WithTags("Job");
 

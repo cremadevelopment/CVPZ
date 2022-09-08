@@ -10,13 +10,14 @@ export class HomeComponent implements OnInit {
   public pingResult?: PingResponse;
 
   constructor(
-    http: HttpClient
+    private http: HttpClient
   ) {
-    http.get<PingResponse>('/system/ping').subscribe(result => {
-      this.pingResult = result;
-    }, error => console.error(error));}
+  }
 
   ngOnInit(): void {
+    this.http.get<PingResponse>('/system/ping').subscribe(result => {
+      this.pingResult = result;
+    }, error => console.error(error));
   }
 }
 
