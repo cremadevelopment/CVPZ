@@ -16,7 +16,8 @@ public static class JobApiExtensions
 
         app.MapGet("/api/Job", Search)
            .Produces<SearchJobs.Response>()
-           .WithTags("Job");
+           .WithTags("Job")
+           .RequireAuthorization();
 
         return app;
     }

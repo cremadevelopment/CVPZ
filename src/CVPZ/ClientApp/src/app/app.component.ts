@@ -43,7 +43,7 @@ export class AppComponent {
         takeUntil(this._destroying$)
       )
       .subscribe(() => {
-        this.setLoginDisplay();
+        this.setLoginDisplay(); 
       });
   }
 

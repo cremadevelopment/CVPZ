@@ -1,4 +1,4 @@
-﻿<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -22,7 +22,7 @@
       <span><a [routerLink]="['']">{{ title }}</a></span>
 
       <div class="toolbar-spacer"></div>
-
+      <span *ngIf="loginDisplay">{{loginDisplay}}</span>
       <button mat-raised-button *ngIf="!loginDisplay" (click)="login()">Login</button>
       <button mat-raised-button color="accent" *ngIf="loginDisplay" (click)="logout()">Logout</button>
     </mat-toolbar>

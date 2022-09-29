@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -22,11 +22,14 @@ import {
   MsalService,
   MSAL_GUARD_CONFIG,
   MSAL_INSTANCE,
-  MsalRedirectComponent
+  MsalRedirectComponent,
+  MsalInterceptor,
+  MSAL_INTERCEPTOR_CONFIG,
+  MsalInterceptorConfiguration
 } from '@azure/msal-angular';
 import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 
-import { msalConfig } from './auth-config';
+import { apiConfig, msalConfig } from './auth-config';
 import { HomeComponent } from './home/home.component';
 import { JobsListComponent } from './jobs-list/jobs-list.component';
 import { JobJournalComponent } from './job-journal/job-journal.component';
@@ -37,6 +40,17 @@ import { JobJournalComponent } from './job-journal/job-journal.component';
  */
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication(msalConfig);
+}
+
+export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+  const protectedResourceMap = new Map<string, Array<string>>();
+
+  protectedResourceMap.set(apiConfig.uri, apiConfig.scopes);
+
+  return {
+    interactionType: InteractionType.Redirect,
+    protectedResourceMap
+  };
 }
 
 /**
@@ -74,6 +88,15 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     {
       provide: MSAL_INSTANCE,
       useFactory: MSALInstanceFactory
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
+    },
+    {
+      provide: MSAL_INTERCEPTOR_CONFIG,
+      useFactory: MSALInterceptorConfigFactory
     },
     {
       provide: MSAL_GUARD_CONFIG,

@@ -6,7 +6,6 @@ const target = env.ASPNETCORE_HTTPS_PORT
     ? env.ASPNETCORE_URLS.split(';')[0]
     : 'https://localhost:7241';
 
-
 const PROXY_CONFIG = [
   {
     context: [
