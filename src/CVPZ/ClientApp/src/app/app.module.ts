@@ -20,16 +20,16 @@ import {
   MsalBroadcastService,
   MsalModule,
   MsalService,
-  MSAL_GUARD_CONFIG,
-  MSAL_INSTANCE,
   MsalRedirectComponent,
   MsalInterceptor,
-  MSAL_INTERCEPTOR_CONFIG,
-  MsalInterceptorConfiguration
+  MsalInterceptorConfiguration,
+  MSAL_INSTANCE,
+  MSAL_GUARD_CONFIG,
+  MSAL_INTERCEPTOR_CONFIG
 } from '@azure/msal-angular';
 import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 
-import { apiConfig, msalConfig } from './auth-config';
+import { msalConfig, apiProtectedResourceMap } from './auth-config';
 import { HomeComponent } from './home/home.component';
 import { JobsListComponent } from './jobs-list/jobs-list.component';
 import { JobJournalComponent } from './job-journal/job-journal.component';
@@ -38,18 +38,16 @@ import { JobJournalComponent } from './job-journal/job-journal.component';
  * Here we pass the configuration parameters to create an MSAL instance.
  * For more info, visit: https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/configuration.md
  */
-export function MSALInstanceFactory(): IPublicClientApplication {
+ export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication(msalConfig);
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
 
-  protectedResourceMap.set(apiConfig.uri, apiConfig.scopes);
-
   return {
     interactionType: InteractionType.Redirect,
-    protectedResourceMap
+    protectedResourceMap: apiProtectedResourceMap
   };
 }
 
@@ -86,21 +84,21 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   ],
   providers: [
     {
-      provide: MSAL_INSTANCE,
-      useFactory: MSALInstanceFactory
-    },
-    {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
-      multi: true
+      multi: true,
     },
     {
-      provide: MSAL_INTERCEPTOR_CONFIG,
-      useFactory: MSALInterceptorConfigFactory
+      provide: MSAL_INSTANCE,
+      useFactory: MSALInstanceFactory,
     },
     {
       provide: MSAL_GUARD_CONFIG,
-      useFactory: MSALGuardConfigFactory
+      useFactory: MSALGuardConfigFactory,
+    },
+    {
+      provide: MSAL_INTERCEPTOR_CONFIG,
+      useFactory: MSALInterceptorConfigFactory,
     },
     MsalService,
     MsalGuard,

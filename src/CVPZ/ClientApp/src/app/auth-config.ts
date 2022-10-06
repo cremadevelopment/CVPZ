@@ -11,16 +11,28 @@ import {
   BrowserCacheLocation,
 } from '@azure/msal-browser';
 
+import { Map } from 'typescript'
+
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
   window.navigator.userAgent.indexOf('Trident/') > -1;
+
+export const apiProtectedResourceMap= new Map<string, Array<string> | null>([
+  [
+    '/api/Job',
+    [
+      'https://cremaclients.onmicrosoft.com/cvpz-api/tasks.write',
+      'https://cremaclients.onmicrosoft.com/cvpz-api/tasks.read'
+    ]
+  ]
+]);
 
 export const apiConfig = {
   scopes: [
     'https://cremaclients.onmicrosoft.com/cvpz-api/tasks.write',
     'https://cremaclients.onmicrosoft.com/cvpz-api/tasks.read',
   ],
-  uri: 'https://localhost:7241/api/Job',
+  uri: 'https://localhost:4200/api/Job',
 };
 
 /**
