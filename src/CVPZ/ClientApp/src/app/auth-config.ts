@@ -11,8 +11,6 @@ import {
   BrowserCacheLocation,
 } from '@azure/msal-browser';
 
-import { Map } from 'typescript'
-
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
   window.navigator.userAgent.indexOf('Trident/') > -1;
@@ -26,14 +24,6 @@ export const apiProtectedResourceMap= new Map<string, Array<string> | null>([
     ]
   ]
 ]);
-
-export const apiConfig = {
-  scopes: [
-    'https://cremaclients.onmicrosoft.com/cvpz-api/tasks.write',
-    'https://cremaclients.onmicrosoft.com/cvpz-api/tasks.read',
-  ],
-  uri: 'https://localhost:4200/api/Job',
-};
 
 /**
  * Enter here the user flows and custom policies for your B2C application,
@@ -89,12 +79,5 @@ export const msalConfig: Configuration = {
       logLevel: LogLevel.Verbose,
       piiLoggingEnabled: false,
     },
-  },
-};
-
-export const protectedResources = {
-  jobListApi: {
-    endpoint: 'https://localhost:7241/job',
-    scopes: ['https://cremaclients.onmicrosoft.com/cvpz-api/tasks.read'],
   },
 };

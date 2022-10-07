@@ -43,8 +43,6 @@ import { JobJournalComponent } from './job-journal/job-journal.component';
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-  const protectedResourceMap = new Map<string, Array<string>>();
-
   return {
     interactionType: InteractionType.Redirect,
     protectedResourceMap: apiProtectedResourceMap
