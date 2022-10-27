@@ -8,7 +8,8 @@ public static class JobApiExtensions
     {
         app.MapPost("/api/Job/Create", Create)
            .Produces<CreateJob.Response>()
-           .WithTags("Job");
+           .WithTags("Job")
+           .RequireAuthorization();
 
         app.MapPost("/api/Job/End", End)
            .Produces<EndJob.Response>()
