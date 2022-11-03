@@ -8,4 +8,5 @@ public class Job : BaseEntity
     public string? Description { get; set; }
     public DateTimeOffset StartDate { get; set; }
     public DateTimeOffset? EndDate { get; set; }
+    public string UserId { get; set; }
 }

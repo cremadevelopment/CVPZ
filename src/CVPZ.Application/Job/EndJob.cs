@@ -3,13 +3,15 @@ using CVPZ.Infrastructure.Data;
 using MediatR;
 using OneOf;
 using static CVPZ.Application.Job.JobEvents;
+using CVPZ.Application.Common.Behaviors;
 
 namespace CVPZ.Application.Job;
 
 public static class EndJob
 {
 
-    public record Request(string JobId, DateTimeOffset EndDate) : IRequest<OneOf<Response, Error>>;
+    public record Request(string JobId, DateTimeOffset EndDate) : UserRequest, IRequest<OneOf<Response, Error>>
+    { public override string? UserId { get; set; } }
 
     public record Response(string JobId);
 
@@ -19,6 +21,7 @@ public static class EndJob
         public static Error JobNotFound => new(Code: nameof(JobNotFound), "Job not found for the given id");
         public static Error JobEndDateRequired => new(Code: nameof(JobEndDateRequired), "Job end date required");
         public static Error JobEndDateGreaterThanStartDate => new(Code: nameof(JobEndDateGreaterThanStartDate), "Job end date must be after the start date");
+        public static Error UserIdNotValid => new(Code: nameof(UserIdNotValid), "User id provided was not the user who created the job");
     }
 
     public class Handler : IRequestHandler<Request, OneOf<Response, Error>>
@@ -47,6 +50,8 @@ public static class EndJob
 
             if (job.StartDate > request.EndDate)
                 return Errors.JobEndDateGreaterThanStartDate;
+            if (job.UserId != request.UserId)
+                return Errors.UserIdNotValid;
 
             job.EndDate = request.EndDate;
             await _context.SaveChangesAsync();
