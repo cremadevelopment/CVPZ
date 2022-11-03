@@ -9,5 +9,6 @@ public class CVPZContext : DbContext
     { }
 
     public DbSet<Job> Jobs { get; set; }
+    public DbSet<User> Users { get; set; }
 
 }
