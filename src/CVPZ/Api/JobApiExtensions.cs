@@ -6,17 +6,19 @@ public static class JobApiExtensions
 {
     public static WebApplication MapJobApi(this WebApplication app)
     {
-        app.MapPost("/Job/Create", Create)
-        .Produces<CreateJob.Response>()
-        .WithTags("Job");
+        app.MapPost("/api/Job/Create", Create)
+           .Produces<CreateJob.Response>()
+           .WithTags("Job")
+           .RequireAuthorization();
 
-        app.MapPost("Job/End", End)
-        .Produces<EndJob.Response>()
-        .WithTags("Job");
+        app.MapPost("/api/Job/End", End)
+           .Produces<EndJob.Response>()
+           .WithTags("Job");
 
-        app.MapGet("Job", Search)
-        .Produces<SearchJobs.Response>()
-        .WithTags("Job");
+        app.MapGet("/api/Job", Search)
+           .Produces<SearchJobs.Response>()
+           .WithTags("Job")
+           .RequireAuthorization();
 
         return app;
     }
