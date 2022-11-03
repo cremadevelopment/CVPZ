@@ -1,6 +1,7 @@
 ﻿using MediatR.Pipeline;
 using Microsoft.AspNetCore.Http;
 using Serilog;
+using System.Security.Claims;
 
 namespace CVPZ.Application.Common.Behaviors;
 
@@ -19,7 +20,10 @@ public class UserTracker<TRequest> : IRequestPreProcessor<TRequest>
     {
         // ToDo :: Sorting out claims identity.
         if (_httpContext.User.Identity != null)
-            _logger.Information("CVPZ Request from user: {@name}", _httpContext.User.Identity?.Name);
+        {
+            ClaimsPrincipal principal = _httpContext.User;
+            _logger.Information($"Request initiated by: {principal.Claims.Single(c => c.Type == "name").Value}");
+        }
 
         return Task.CompletedTask;
     }
