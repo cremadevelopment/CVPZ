@@ -85,7 +85,8 @@ public static class CreateJob
                 EmployerName = request.EmployerName,
                 Description = request.Description,
                 StartDate = request.StartDate,
-                EndDate = request.EndDate
+                EndDate = request.EndDate,
+                UserId = request.UserId,
             };
         }
 

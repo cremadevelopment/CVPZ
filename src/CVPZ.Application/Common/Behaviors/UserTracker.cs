@@ -20,7 +20,6 @@ public class UserTracker<TRequest> : IRequestPreProcessor<TRequest>
         this._mediator = mediator;
         _logger = logger;
     }
-
     public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
         if (_httpContext.User.Identity != null)

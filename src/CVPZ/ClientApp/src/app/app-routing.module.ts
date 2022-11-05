@@ -4,6 +4,7 @@ import { MsalGuard } from '@azure/msal-angular';
 import { HomeComponent } from './home/home.component';
 import { JobJournalComponent } from './job-journal/job-journal.component';
 import { JobsListComponent } from './jobs-list/jobs-list.component';
+import { CreateJobComponent } from './create-job/create-job.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,11 @@ const routes: Routes = [
   {
     path: 'journal',
     component: JobJournalComponent,
+    canActivate: [MsalGuard]
+  },
+  {
+    path: 'create',
+    component: CreateJobComponent,
     canActivate: [MsalGuard]
   },
   {

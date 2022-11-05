@@ -22,6 +22,10 @@ export class JobDataService {
       .get<JobApiResponse>(this.ROOT_URL + '/api/Job', { params })
       .subscribe(resp => this.jobSource.next(resp.jobs));
   }
+  createJob(job: Job)
+  {
+    return this.http.post<Job>(this.ROOT_URL + '/api/Job/Create', job).subscribe(res => console.log(res));
+  }
 }
 
 interface JobApiResponse {
