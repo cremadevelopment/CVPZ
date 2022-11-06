@@ -34,7 +34,7 @@ import { msalConfig, apiProtectedResourceMap } from './auth-config';
 import { HomeComponent } from './home/home.component';
 import { JobsListComponent } from './jobs-list/jobs-list.component';
 import { JobJournalComponent } from './job-journal/job-journal.component';
-import { CreateJobComponent } from './create-job/create-job.component';
+import { JobTestComponent } from './jobtest/jobtest.component';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -67,7 +67,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     HomeComponent,
     JobsListComponent,
     JobJournalComponent,
-    CreateJobComponent,
+    JobTestComponent,
   ],
   imports: [
     BrowserModule,

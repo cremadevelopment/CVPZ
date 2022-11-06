@@ -1,0 +1,43 @@
+<p>jobtest works!</p>
+<hr />
+<tr>
+  <!--Test Create Job-->
+  <td style="padding-left:1em">
+    <div>
+      <label>Employer: </label><br />
+      <input type="text" [(ngModel)]="newJob.EmployerName" />
+    </div><br />
+    <div>
+      <label>Title: </label><br />
+      <input type="text" [(ngModel)]="newJob.Title" />
+    </div><br />
+    <div>
+      <label>Description: </label><br />
+      <input type="text" [(ngModel)]="newJob.Description" />
+    </div><br />
+    <div>
+      <label>Start Date: </label><br />
+      <input type="date" [(ngModel)]="newJob.StartDate" />
+      <button (click)="createJob()" style="margin-left:2em;">Submit Job</button>
+    </div>
+  </td>
+  <!--Test End Job-->
+  <td style="padding-left:5em">
+    <div>
+      <label>JobId: </label><br />
+      <input type="text" [(ngModel)]="job.JobId" required />
+    </div><br />
+    <div>
+      <label>End Date: </label><br />
+      <input type="date" [(ngModel)]="job.EndDate" required />
+      <button (click)="endJob()" style="margin-left:2em;">End Job</button>
+    </div>
+  </td>
+</tr>
+  <!--
+    jobId: number;
+  employerName: string;
+  title: string;
+  description: string;
+  startDate: Date;
+  endDate: Date; -->
