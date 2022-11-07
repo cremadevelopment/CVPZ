@@ -27,7 +27,7 @@ export class JobDataService {
     return this.http.post<Job>(this.ROOT_URL + '/api/Job/Create', job).subscribe(res => console.log(res));
   }
   endJob(job: any) {
-    return this.http.post<Job>(this.ROOT_URL + '/api/Job/End', job).subscribe(res => console.log(res));
+    return this.http.post<string>(this.ROOT_URL + '/api/Job/End', job).subscribe(res => console.log(res));
   }
 }
 
