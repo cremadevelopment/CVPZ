@@ -1,4 +1,5 @@
-﻿using CVPZ.Core;
+﻿using CVPZ.Application.Common;
+using CVPZ.Core;
 using CVPZ.Infrastructure.Data;
 using MediatR;
 using OneOf;
@@ -14,7 +15,7 @@ public static class CreateJob
         string? Description,
         DateTimeOffset StartDate,
         DateTimeOffset? EndDate)
-        : IRequest<OneOf<Response, Error>>;
+        : UserRequest, IRequest<OneOf<Response, Error>>;
 
     public record Response(
         string Id,
@@ -76,6 +77,7 @@ public static class CreateJob
         {
             return new Domain.Job
             {
+                UserId = request.GetUserId(),
                 Title = request.Title,
                 EmployerName = request.EmployerName,
                 Description = request.Description,
