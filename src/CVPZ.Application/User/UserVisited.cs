@@ -1,4 +1,5 @@
-﻿using CVPZ.Infrastructure.Data;
+﻿using CVPZ.Core;
+using CVPZ.Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -20,14 +21,14 @@ public class UserVisited
 
         public async Task Handle(Event notification, CancellationToken cancellationToken)
         {
-            var objectId = notification.principal.Claims.Single(c => c.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+            var objectId = notification.principal.GetClaim("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
             
             var user = await _context.Users.FirstOrDefaultAsync(x => x.ObjectId == objectId);
             if (null == user)
             {
                 user = new Domain.User
                 {
-                    NickName = notification.principal.Claims.Single(c => c.Type == "name").Value,
+                    NickName = notification.principal.GetClaim("name"),
                     ObjectId = objectId
                 };
                 await _context.Users.AddAsync(user);

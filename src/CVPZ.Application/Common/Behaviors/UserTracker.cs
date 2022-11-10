@@ -1,4 +1,5 @@
 ﻿using CVPZ.Application.User;
+using CVPZ.Core;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +27,7 @@ public class UserTracker<TRequest> : IRequestPreProcessor<TRequest>
         {
             ClaimsPrincipal principal = _httpContext.User;
             await _mediator.Publish(new UserVisited.Event(principal), cancellationToken);
-            _logger.Information($"Request initiated by: {principal.Claims.Single(c => c.Type == "name").Value}");
+            _logger.Information($"Request initiated by: {principal.GetClaim("name")}");
         }
     }
 }

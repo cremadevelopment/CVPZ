@@ -1,4 +1,5 @@
-﻿using MediatR.Pipeline;
+﻿using CVPZ.Core;
+using MediatR.Pipeline;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
@@ -19,8 +20,8 @@ public class UserRequestProcessor<TRequest> : IRequestPreProcessor<TRequest> whe
         {
             ClaimsPrincipal principal = _httpContext.User;
             var userObjectClaimName = "http://schemas.microsoft.com/identity/claims/objectidentifier";
-            var userIdString = principal.Claims.Single(c => c.Type == userObjectClaimName).Value;
-            request.SetUserId(new Guid(userIdString));
+            var userId = new Guid(principal.GetClaim(userObjectClaimName));
+            request.SetUserId(userId);
         }
     }
 }
