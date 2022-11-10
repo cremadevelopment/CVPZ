@@ -18,7 +18,7 @@ public class UserRequestProcessor<TRequest> : IRequestPreProcessor<TRequest> whe
         if (_httpContext.User.Identity != null)
         {
             ClaimsPrincipal principal = _httpContext.User;
-            var userObjectClaimName = "https://schemas.microsoft.com/identity/claims/objectidentifier";
+            var userObjectClaimName = "http://schemas.microsoft.com/identity/claims/objectidentifier";
             var userIdString = principal.Claims.Single(c => c.Type == userObjectClaimName).Value;
             request.SetUserId(new Guid(userIdString));
         }

@@ -1,9 +1,12 @@
-POST https://localhost:7241/Job/Create
+@token = 
+
+POST https://localhost:7241/api/Job/Create
 content-type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "title": "Something Doer",
-  "employerName": "Other Employer :-]",
-  "description": "Doer of awesome things that make people happy.",
-  "startDate": "2000-01-01"
+  "title": "CPA",
+  "employerName": "Tight Britches :-]",
+  "description": "Number wrangler.",
+  "startDate": "2021-01-21"
 }
