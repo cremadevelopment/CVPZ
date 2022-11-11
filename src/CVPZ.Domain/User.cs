@@ -3,5 +3,5 @@
 public class User : BaseEntity
 {
     public string NickName { get; set; }
-    public string ObjectId { get; set; }
+    public Guid ObjectId { get; set; }
 }
