@@ -21,7 +21,7 @@ public class UserVisited
 
         public async Task Handle(Event notification, CancellationToken cancellationToken)
         {
-            var objectId = notification.principal.GetClaim("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+            var objectId = notification.principal.GetClaim("http://schemas.microsoft.com/identity/claims/objectidentifier");
             
             var user = await _context.Users.FirstOrDefaultAsync(x => x.ObjectId == objectId);
             if (null == user)
