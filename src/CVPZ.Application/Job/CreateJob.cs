@@ -24,8 +24,7 @@ public static class CreateJob
         string Title,
         string? Description,
         DateTimeOffset StartDate,
-        DateTimeOffset? EndDate,
-        string UserId);
+        DateTimeOffset? EndDate);
 
     public class Errors
     {
@@ -68,8 +67,7 @@ public static class CreateJob
                 entity.Title,
                 entity.Description,
                 entity.StartDate,
-                entity.EndDate,
-                entity.UserId);
+                entity.EndDate);
 
             await _mediator.Publish(new JobCreated(entity.Id.ToString()));
 
@@ -86,7 +84,6 @@ public static class CreateJob
                 Description = request.Description,
                 StartDate = request.StartDate,
                 EndDate = request.EndDate,
-                UserId = request.UserId,
             };
         }
 
