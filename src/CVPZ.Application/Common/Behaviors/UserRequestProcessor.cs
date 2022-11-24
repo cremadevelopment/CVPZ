@@ -6,10 +6,11 @@ using System.Security.Claims;
 using Serilog;
 using CVPZ.Application.User;
 using CVPZ.Infrastructure.Data;
+using CVPZ.Core;
 
 namespace CVPZ.Application.Common.Behaviors;
 
-public class UserRequestProcessor : IRequestPreProcessor<UserRequest>
+public class UserRequestProcessor<TRequest> : IRequestPreProcessor<TRequest> where TRequest : UserRequest
 {
     private readonly HttpContext _httpContext;
     private readonly ILogger _logger;
@@ -20,14 +21,12 @@ public class UserRequestProcessor : IRequestPreProcessor<UserRequest>
     }
     public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
-        var req = request as UserRequest;
-        if (req != null && _httpContext.User.Identity != null)
+        if (_httpContext.User.Identity != null)
         {
             ClaimsPrincipal principal = _httpContext.User;
-            var objectId = principal.Claims.Single(c => c.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-            req.UserId = objectId;
+            Guid objectId = new(principal.GetClaim("http://schemas.microsoft.com/identity/claims/objectidentifier"));
+            request.SetUserId(objectId);
             _logger.Information("user request: {@request}", request);
         }
     }
 }
-public abstract record UserRequest{ public abstract string? UserId { get; set; } }

@@ -1,17 +1,15 @@
-﻿using CVPZ.Core;
+﻿using CVPZ.Application.Common;
+using CVPZ.Core;
 using CVPZ.Infrastructure.Data;
 using MediatR;
 using OneOf;
 using static CVPZ.Application.Job.JobEvents;
-using CVPZ.Application.Common.Behaviors;
 
 namespace CVPZ.Application.Job;
 
 public static class EndJob
 {
-
-    public record Request(string JobId, DateTimeOffset EndDate) : UserRequest, IRequest<OneOf<Response, Error>>
-    { public override string? UserId { get; set; } }
+    public record Request(string JobId, DateTimeOffset EndDate) : UserRequest, IRequest<OneOf<Response, Error>>;
 
     public record Response(string JobId);
 
@@ -50,7 +48,7 @@ public static class EndJob
 
             if (job.StartDate > request.EndDate)
                 return Errors.JobEndDateGreaterThanStartDate;
-            if (job.UserId != request.UserId)
+            if (job.UserId != request.GetUserId())
                 return Errors.UserIdNotValid;
 
             job.EndDate = request.EndDate;
