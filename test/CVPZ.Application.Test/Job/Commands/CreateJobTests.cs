@@ -25,6 +25,8 @@ public class CreateJobTests
             DateTimeOffset.Now,
             null);
 
+        request.SetUserId(new Guid("32bfe497-4100-4351-a786-00d68e5af561"));
+
         var handler = new CreateJob.Handler(ds.Context, mockMediatR.Object);
 
         //Act
@@ -41,6 +43,30 @@ public class CreateJobTests
     }
 
     [Fact]
+    public async Task Should_error_empty_userId() 
+    {
+        using var ds = new DataSource();
+        var mockMediatR = new Mock<IMediator>();
+
+        var request = new CreateJob.Request(
+        "Super Awesome Software Consultant",
+        "Crema Development LLC {[/]",
+        "Awesome position where you get to do awesome things to make client awesome desires happen!",
+        DateTimeOffset.Now,
+        null);
+
+        var handler = new CreateJob.Handler(ds.Context, mockMediatR.Object);
+
+        //Act
+        var response = await handler.Handle(request, CancellationToken.None);
+
+        //Assert
+        response.Switch(
+            result => Assert.Null(result),
+            error => Assert.True(error.Code == CreateJob.Errors.UserObjectIdInvalid.Code));
+    }
+
+    [Fact]
     public async Task Should_require_title()
     {
         //Arrange
@@ -53,6 +79,8 @@ public class CreateJobTests
             "Awesome position where you get to do awesome things to make client awesome desires happen!",
             DateTimeOffset.Now,
             null);
+
+        request.SetUserId(new Guid("32bfe497-4100-4351-a786-00d68e5af561"));
 
         var handler = new CreateJob.Handler(ds.Context, mockMediatR.Object);
 
@@ -80,6 +108,8 @@ public class CreateJobTests
             DateTimeOffset.Now,
             null);
 
+        request.SetUserId(new Guid("32bfe497-4100-4351-a786-00d68e5af561"));
+
         var handler = new CreateJob.Handler(ds.Context, mockMediatR.Object);
 
         //Act
@@ -106,6 +136,8 @@ public class CreateJobTests
             DateTimeOffset.MinValue, // Nulls aren't allowed so we check for min & max.
             null);
 
+        request.SetUserId(new Guid("32bfe497-4100-4351-a786-00d68e5af561"));
+
         var handler = new CreateJob.Handler(ds.Context, mockMediatR.Object);
 
         //Act
@@ -131,6 +163,8 @@ public class CreateJobTests
             "Awesome position where you get to do awesome things to make client awesome desires happen!",
             DateTimeOffset.Now.AddDays(-2),
             DateTimeOffset.Now.AddDays(-5));
+
+        request.SetUserId(new Guid("32bfe497-4100-4351-a786-00d68e5af561"));
 
         var handler = new CreateJob.Handler(ds.Context, mockMediatR.Object);
 
