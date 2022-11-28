@@ -3,6 +3,7 @@ using CVPZ.Core;
 using CVPZ.Infrastructure.Data;
 using MediatR;
 using OneOf;
+using CVPZ.Application.Common.Behaviors;
 using static CVPZ.Application.Job.JobEvents;
 
 namespace CVPZ.Application.Job;
@@ -27,6 +28,7 @@ public static class CreateJob
 
     public class Errors
     {
+        public static Error UserObjectIdInvalid => new(Code: nameof(UserObjectIdInvalid), "Must be a valid user to create a job");
         public static Error JobTitleRequired => new(Code: nameof(JobTitleRequired), "Title is required");
         public static Error JobEmployerNameRequired => new(Code: nameof(JobEmployerNameRequired), "Employer name is required");
         public static Error JobStartDateRequired => new(Code: nameof(JobStartDateRequired), "Job start date required");
@@ -46,6 +48,9 @@ public static class CreateJob
 
         public async Task<OneOf<Response, Error>> Handle(Request request, CancellationToken cancellationToken)
         {
+            if (Guid.Empty == request.GetUserId())
+                return Errors.UserObjectIdInvalid;
+
             if (string.IsNullOrWhiteSpace(request.Title))
                 return Errors.JobTitleRequired;
 
