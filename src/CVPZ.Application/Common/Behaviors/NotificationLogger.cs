@@ -15,8 +15,8 @@ public class NotificationLogger : INotificationHandler<INotification>
 
     public Task Handle(INotification notification, CancellationToken cancellationToken)
     {
-        var name = typeof(INotification).Name;
-
+        _notificationCount++;
+        var name = notification.GetType().Name;
         _logger.Information("CVPZ Notification: {@name} is the {@notificationCount} event.", name, _notificationCount);
 
         return Task.CompletedTask;
