@@ -21,6 +21,11 @@ public static class JobApiExtensions
            .WithTags("Job")
            .RequireAuthorization();
 
+        app.MapGet("/api/MyJobs", GetMyJobs)
+           .Produces<GetMyJobs.Response>()
+           .WithTags("Job")
+           .RequireAuthorization();
+
         return app;
     }
 
@@ -45,6 +50,16 @@ public static class JobApiExtensions
     public static async Task<IResult> Search([FromServices] IMediator mediator, [FromQuery] string? title, [FromQuery] string? employer)
     {
         var request = new SearchJobs.Request(title, employer);
+        var response = await mediator.Send(request);
+        return response.Match(
+            response => Results.Ok(response),
+            error => Results.BadRequest(error)
+        );
+    }
+
+    public static async Task<IResult> GetMyJobs([FromServices] IMediator mediator)
+    {
+        var request = new GetMyJobs.Request();
         var response = await mediator.Send(request);
         return response.Match(
             response => Results.Ok(response),
