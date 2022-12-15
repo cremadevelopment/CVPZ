@@ -10,16 +10,14 @@ import { JobJournalComponent } from './job-journal/job-journal.component';
 })
 export class JobDataService {
   readonly ROOT_URL = "";
-  private jobSource = new BehaviorSubject<Job[]>([]);
-  jobs = this.jobSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  getJobs() {
+  getJobs() : Observable<Job[]> {
     let params = new HttpParams();
-    this.http
+    return this.http
       .get<JobApiResponse>(this.ROOT_URL + '/api/Job', { params })
-      .subscribe(resp => this.jobSource.next(resp.jobs));
+      .pipe(map(jar => jar.jobs));
   }
 
   getMyJobs() : Observable<Job[]> {
