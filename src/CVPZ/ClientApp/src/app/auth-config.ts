@@ -22,7 +22,14 @@ export const apiProtectedResourceMap= new Map<string, Array<string> | null>([
       'https://cremaclients.onmicrosoft.com/cvpz-api/tasks.write',
       'https://cremaclients.onmicrosoft.com/cvpz-api/tasks.read'
     ]
-  ]
+  ],
+  [
+    '/api/MyJob',
+    [
+      'https://cremaclients.onmicrosoft.com/cvpz-api/tasks.write',
+      'https://cremaclients.onmicrosoft.com/cvpz-api/tasks.read'
+    ]
+  ],
 ]);
 
 /**
