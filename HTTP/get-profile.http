@@ -1,0 +1,4 @@
+@token = 
+
+GET https://graph.microsoft.com/v1.0/me
+Authorization: Bearer {{token}}

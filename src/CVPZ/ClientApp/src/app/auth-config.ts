@@ -30,6 +30,13 @@ export const apiProtectedResourceMap= new Map<string, Array<string> | null>([
       'https://cremaclients.onmicrosoft.com/cvpz-api/tasks.read'
     ]
   ],
+  [
+    'https://graph.microsoft.com/v1.0/me',
+    [
+      'https://graph.microsoft.com/offline_access',
+      'https://graph.microsoft.com/openid'
+    ]
+  ]
 ]);
 
 /**
