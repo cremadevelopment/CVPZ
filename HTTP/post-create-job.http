@@ -5,8 +5,8 @@ content-type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "title": "CPA",
-  "employerName": "Tight Britches :-]",
-  "description": "Number wrangler.",
+  "title": "Create Second Job",
+  "employerName": "Me",
+  "description": "Job no. 2.",
   "startDate": "2021-01-21"
 }

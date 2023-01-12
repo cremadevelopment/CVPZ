@@ -1,6 +1,7 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +34,8 @@ import { msalConfig, apiProtectedResourceMap } from './auth-config';
 import { HomeComponent } from './home/home.component';
 import { JobsListComponent } from './jobs-list/jobs-list.component';
 import { JobJournalComponent } from './job-journal/job-journal.component';
+import { JobTestComponent } from './jobtest/jobtest.component';
+import { MyJobsComponent } from './my-jobs/my-jobs.component';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -65,9 +68,12 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     HomeComponent,
     JobsListComponent,
     JobJournalComponent,
+    JobTestComponent,
+    MyJobsComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,

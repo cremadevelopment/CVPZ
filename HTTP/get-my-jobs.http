@@ -1,0 +1,5 @@
+@token = 
+
+GET {{baseUrl}}/api/MyJobs
+content-type: application/json
+Authorization: Bearer {{token}}

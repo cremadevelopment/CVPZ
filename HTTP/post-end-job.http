@@ -1,5 +1,9 @@
-POST https://localhost:7241/Job/End
+@token = 
+
+
+POST https://localhost:7241/api/Job/End
 content-type: application/json
+Authorization: Bearer {{token}}
 
 {
   "jobId": "1",
