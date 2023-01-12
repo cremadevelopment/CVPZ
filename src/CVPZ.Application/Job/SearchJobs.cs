@@ -9,9 +9,7 @@ namespace CVPZ.Application.Job;
 public static class SearchJobs
 {
     public record Request(string? Title, string? Employer): IRequest<OneOf<Response, Error>>;
-    public record Response(IEnumerable<Job> Jobs);
-    //HACK :: CarBar :: Job record exists in 2 places GetMyJobs and SearchJobs
-    public record Job(string JobId, string EmployerName, string Title, string? Description, DateTimeOffset StartDate, DateTimeOffset? EndDate);
+    public record Response(IEnumerable<DataObjects.Job> Jobs);
 
     public class Handler : IRequestHandler<Request, OneOf<Response, Error>>
     {
@@ -27,7 +25,7 @@ public static class SearchJobs
             var jobResults = _context.Jobs
                     .Where(SearchTitle(request.Title))
                     .Where(SearchEmployer(request.Employer))
-                    .Select(x => new Job(
+                    .Select(x => new DataObjects.Job(
                         x.Id.ToString(),
                         x.EmployerName,
                         x.Title,
