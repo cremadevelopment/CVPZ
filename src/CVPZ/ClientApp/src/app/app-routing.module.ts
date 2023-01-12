@@ -6,6 +6,7 @@ import { JobJournalComponent } from './job-journal/job-journal.component';
 import { JobsListComponent } from './jobs-list/jobs-list.component';
 import { JobTestComponent } from './jobtest/jobtest.component';
 import { MyJobsComponent } from './my-jobs/my-jobs.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,11 @@ const routes: Routes = [
   {
     path: 'myjobs',
     component: MyJobsComponent,
+    canActivate: [MsalGuard]
+  },
+  {
+    path: 'profile',
+    component: UserProfileComponent,
     canActivate: [MsalGuard]
   },
   {

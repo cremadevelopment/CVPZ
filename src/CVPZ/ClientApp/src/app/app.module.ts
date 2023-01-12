@@ -36,6 +36,7 @@ import { JobsListComponent } from './jobs-list/jobs-list.component';
 import { JobJournalComponent } from './job-journal/job-journal.component';
 import { JobTestComponent } from './jobtest/jobtest.component';
 import { MyJobsComponent } from './my-jobs/my-jobs.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 /**
  * Here we pass the configuration parameters to create an MSAL instance.
@@ -70,6 +71,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     JobJournalComponent,
     JobTestComponent,
     MyJobsComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
